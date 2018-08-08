@@ -25,7 +25,7 @@ class Timer extends Component {
   render() {
     return (
       <div className="App">
-        <Display currentTime={1111111} />
+        <Display currentTime={this.state.timer} />
         <Keypad />
       </div>
     );
