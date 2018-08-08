@@ -35,7 +35,7 @@ describe('Timer', () => {
     wrapper.instance().runTimer()
 
     expect(setInterval).toHaveBeenCalled()
-    expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 60)
+    expect(setInterval).toHaveBeenCalledWith(expect.anything(), -60)
     expect(wrapper.state().intervalId).toBeDefined()
   })
 

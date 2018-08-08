@@ -11,11 +11,11 @@ class Timer extends Component {
     timer: this.props.timer || 0
   }
 
-  setTimer = timer => this.setState({ timer })
+  setTimer = interval => this.setState(({ timer: prevTimer }) => ({ timer: prevTimer + interval }))
 
   runTimer = () => {
-    const interval = 60
-    const intervalId = setInterval(() => this.setTimer(this.state.timer - interval), interval)
+    const interval = -60
+    const intervalId = setInterval(() => this.setTimer(interval), interval)
     this.setState({ intervalId })
   }
 
