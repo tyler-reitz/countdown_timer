@@ -3,6 +3,7 @@ import './Timer.css';
 
 import Keypad from './components/Keypad'
 import Display from './components/Display'
+import Controls from './components/Controls'
 
 class Timer extends Component {
 
@@ -25,6 +26,11 @@ class Timer extends Component {
   render() {
     return (
       <div className="App">
+        <Controls 
+          handleStart={this.runTimer}
+          handleStop={this.stopTimer}
+          handleReset={this.resetTimer}
+        />
         <Display currentTime={this.state.timer} />
         <Keypad />
       </div>
