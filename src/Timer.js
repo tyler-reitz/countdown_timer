@@ -32,7 +32,7 @@ class Timer extends Component {
           handleReset={this.resetTimer}
         />
         <Display currentTime={this.state.timer} />
-        <Keypad />
+        <Keypad handleKeypadClick={this.setTimer} />
       </div>
     );
   }
