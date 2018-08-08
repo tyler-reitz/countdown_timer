@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme'
 
 import Timer from './Timer';
+import Keypad from './components/Keypad'
 
 describe('Timer', () => {
 
@@ -56,5 +57,10 @@ describe('Timer', () => {
     wrapper.instance().resetTimer()
 
     expect(wrapper.state().timer).toBe(0)
+  })
+
+  it('renders a keypad', () => {
+    const wrapper = setup()
+    expect(wrapper.find(Keypad).length).toBe(1)
   })
 })
