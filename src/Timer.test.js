@@ -3,6 +3,7 @@ import { shallow } from 'enzyme'
 
 import Timer from './Timer';
 import Keypad from './components/Keypad'
+import Display from './components/Display'
 
 describe('Timer', () => {
 
@@ -62,5 +63,10 @@ describe('Timer', () => {
   it('renders a keypad', () => {
     const wrapper = setup()
     expect(wrapper.find(Keypad).length).toBe(1)
+  })
+
+  it('renders a Display', () => {
+    const wrapper = setup()
+    expect(wrapper.find(Display).length).toBe(1)
   })
 })

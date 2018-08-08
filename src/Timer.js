@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Timer.css';
 
 import Keypad from './components/Keypad'
+import Display from './components/Display'
 
 class Timer extends Component {
 
@@ -24,6 +25,7 @@ class Timer extends Component {
   render() {
     return (
       <div className="App">
+        <Display currentTime={1111111} />
         <Keypad />
       </div>
     );
