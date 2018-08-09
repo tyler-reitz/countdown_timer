@@ -1,10 +1,26 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 
-class Keypad extends Component {
+const styles = {
+  container: {
+    maxWidth: 400,
+    margin: "auto"
+  },
+  keypad: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginBottom: "1rem"
+  },
+  keys: {
+    flexBasis: '30%',
+    margin: '.25rem'
+  }
+}
 
+class Keypad extends Component {
   state = {
-    activeUnit: 'minutes',
+    activeUnit: "minutes",
     seconds: 1000,
     minutes: 60000,
     hours: 3600000
@@ -15,7 +31,23 @@ class Keypad extends Component {
   render() {
     const { activeUnit } = this.state
     return (
-      <div>
+      <div style={styles.container}>
+        <div style={styles.keypad}>
+          {Array(10)
+            .fill(null)
+            .map((_, idx) => (
+              <button
+                onClick={() =>
+                  this.props.handleKeypadClick({ [activeUnit]: idx })
+                }
+                style={{ ...styles.keys, order: idx === 0 ? 'initial' : -1 }}
+                key={idx}
+              >
+                {idx}
+              </button>
+            ))}
+        </div>
+
         <label for="timer-units">Units: </label>
         <select
           onChange={this.handleSelect}
@@ -23,19 +55,16 @@ class Keypad extends Component {
           name="timer-units"
         >
           {["hours", "minutes", "seconds"].map(unit => (
-            <option key={unit} value={unit} selected={unit === this.state.activeUnit}>
+            <option
+              key={unit}
+              value={unit}
+              selected={unit === this.state.activeUnit}
+            >
               {unit}
             </option>
           ))}
         </select>
 
-        {Array(10)
-          .fill(null)
-          .map((_, idx) => (
-            <button onClick={() => this.props.handleKeypadClick({ [activeUnit]: idx })} key={idx}>
-              {idx}
-            </button>
-          ))}
       </div>
     )
   }
