@@ -29,7 +29,10 @@ class Timer extends Component {
 
   stopTimer = () => clearInterval(this.state.intervalId)
 
-  resetTimer = () => this.setState({ timer: Duration.fromMillis(0), intervalId: null })
+  resetTimer = () => {
+    this.stopTimer()
+    this.setState({ timer: Duration.fromMillis(0), intervalId: null })
+  }
 
   render() {
     const isRunning = this.state.intervalId
