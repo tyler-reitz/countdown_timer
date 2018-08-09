@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 const styles = {
   container: {
     maxWidth: 400,
-    margin: "auto"
+    textAlign: 'center'
   },
   keypad: {
     display: "flex",

@@ -42,6 +42,15 @@ describe('Timer', () => {
     expect(wrapper.state().intervalId).toBeDefined()
   })
 
+  it('hides the keypad when running', () => {
+    const props = { timer: 3600 }
+    const wrapper = setup(props)
+
+    wrapper.instance().runTimer()
+
+    expect(wrapper.find(Keypad).length).toBe(1)
+  })
+
   it('stops the timer', () => {
     jest.useFakeTimers()
 
@@ -74,6 +83,7 @@ describe('Timer', () => {
     wrapper.instance().resetTimer()
 
     expect(wrapper.state().timer).toEqual(expect.any(Duration))
+    expect(wrapper.state().intervalId).toBe(null)
   })
 
   it('renders a keypad', () => {

@@ -29,18 +29,24 @@ class Timer extends Component {
 
   stopTimer = () => clearInterval(this.state.intervalId)
 
-  resetTimer = () => this.setState({ timer: Duration.fromMillis(0) })
+  resetTimer = () => this.setState({ timer: Duration.fromMillis(0), intervalId: null })
 
   render() {
+    const isRunning = this.state.intervalId
+
     return (
       <div className="App">
         <Controls 
           handleStart={this.runTimer}
           handleStop={this.stopTimer}
           handleReset={this.resetTimer}
+          isRunning={isRunning}
         />
-        <Display currentTime={this.state.timer.as('milliseconds') || 0} />
-        <Keypad handleKeypadClick={this.setTimer} />
+        <Display 
+          currentTime={this.state.timer.as('milliseconds') || 0} 
+          isRunning={isRunning}
+        />
+        {!isRunning && <Keypad handleKeypadClick={this.setTimer} />}
       </div>
     );
   }
