@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Duration } from 'luxon'
 import './Timer.css';
 
 import Keypad from './components/Keypad'
@@ -8,10 +9,10 @@ import Controls from './components/Controls'
 class Timer extends Component {
 
   state = {
-    timer: this.props.timer || 0
+    timer: Duration.fromMillis(this.props.timer || 0)
   }
 
-  setTimer = interval => this.setState(({ timer: prevTimer }) => ({ timer: prevTimer + interval }))
+  setTimer = interval => this.setState(({ timer: prevTimer }) => ({ timer: prevTimer.plus(interval) }))
 
   runTimer = () => {
     const interval = -60
@@ -21,7 +22,7 @@ class Timer extends Component {
 
   stopTimer = () => clearInterval(this.state.intervalId)
 
-  resetTimer = () => this.setState({ timer: 0 })
+  resetTimer = () => this.setState({ timer: Duration.fromMillis(0) })
 
   render() {
     return (
@@ -31,7 +32,7 @@ class Timer extends Component {
           handleStop={this.stopTimer}
           handleReset={this.resetTimer}
         />
-        <Display currentTime={this.state.timer} />
+        <Display currentTime={this.state.timer.as('milliseconds') || 0} />
         <Keypad handleKeypadClick={this.setTimer} />
       </div>
     );

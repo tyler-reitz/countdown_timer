@@ -2,9 +2,18 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 
 class Keypad extends Component {
-  handleSelect = evt => this.setState({ unit: evt.target.value })
+
+  state = {
+    activeUnit: 'minutes',
+    seconds: 1000,
+    minutes: 60000,
+    hours: 3600000
+  }
+
+  handleSelect = evt => this.setState({ activeUnit: evt.target.value })
 
   render() {
+    const { activeUnit } = this.state
     return (
       <div>
         <label for="timer-units">Units: </label>
@@ -14,7 +23,7 @@ class Keypad extends Component {
           name="timer-units"
         >
           {["hours", "minutes", "seconds"].map(unit => (
-            <option key={unit} value={unit}>
+            <option key={unit} value={unit} selected={unit === this.state.activeUnit}>
               {unit}
             </option>
           ))}
@@ -23,7 +32,7 @@ class Keypad extends Component {
         {Array(10)
           .fill(null)
           .map((_, idx) => (
-            <button onClick={() => this.props.handleKeypadClick(idx)} key={idx}>
+            <button onClick={() => this.props.handleKeypadClick({ [activeUnit]: idx })} key={idx}>
               {idx}
             </button>
           ))}

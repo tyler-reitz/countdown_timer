@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme'
+import { Duration } from 'luxon'
 
 import Timer from './Timer';
 import Keypad from './components/Keypad'
@@ -17,14 +18,16 @@ describe('Timer', () => {
 
   it('initializes timer state', () => {
     const wrapper = setup()
-    expect(wrapper.state().timer).toBe(0)
+    expect(wrapper.state().timer.milliseconds).toBe(0)
   })
 
   it('sets timer to correct countdown value', () => {
-    const props = { timer: 3600 }
+    const props = { timer: 1000 }
     const wrapper = setup(props)
 
-    expect(wrapper.state().timer).toBe(props.timer)
+    wrapper.instance().setTimer({ seconds: 1 })
+
+    expect(wrapper.state().timer.toFormat('S')).toBe((props.timer + 1000).toString())
   })
 
   it('runs the timer', () => {
@@ -58,7 +61,7 @@ describe('Timer', () => {
 
     wrapper.instance().resetTimer()
 
-    expect(wrapper.state().timer).toBe(0)
+    expect(wrapper.state().timer).toEqual(expect.any(Duration))
   })
 
   it('renders a keypad', () => {

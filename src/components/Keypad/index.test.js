@@ -57,13 +57,15 @@ describe('Keypad', () => {
 
     wrapper.find('select').simulate('change', { target: { value: 'seconds' } })
 
-    expect(wrapper.state().unit).toBe('seconds')
+    expect(wrapper.state().activeUnit).toBe('seconds')
   })
 
   it('updates the timer when a key is clicked', () => {
-    const wrapper = setup(props).find('button').at(0)
-    wrapper.simulate('click')
+    const wrapper = setup(props)
+    wrapper.find('select').simulate('change', { target: { value: 'seconds' } })
+    wrapper.find('button').at(1).simulate('click')
+
     expect(handleKeypadClickMock.mock.calls.length).toBe(1)
-    expect(handleKeypadClickMock.mock.calls[0][0]).toBe(0)
+    expect(handleKeypadClickMock.mock.calls[0][0]).toEqual({ seconds: 1 })
   })
 })
