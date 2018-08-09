@@ -15,8 +15,15 @@ class Timer extends Component {
   setTimer = interval => this.setState(({ timer: prevTimer }) => ({ timer: prevTimer.plus(interval) }))
 
   runTimer = () => {
-    const interval = -60
-    const intervalId = setInterval(() => this.setTimer(interval), interval)
+    const interval = 60
+    const intervalId = setInterval(() => {
+      if (this.state.timer.toFormat('S') < 100) {
+        this.stopTimer()
+        this.resetTimer()
+      } else {
+        this.setTimer(-interval)
+      }
+    }, interval)
     this.setState({ intervalId })
   }
 

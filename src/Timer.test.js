@@ -38,7 +38,7 @@ describe('Timer', () => {
     wrapper.instance().runTimer()
 
     expect(setInterval).toHaveBeenCalled()
-    expect(setInterval).toHaveBeenCalledWith(expect.anything(), -60)
+    expect(setInterval).toHaveBeenCalledWith(expect.anything(), 60)
     expect(wrapper.state().intervalId).toBeDefined()
   })
 
@@ -53,6 +53,18 @@ describe('Timer', () => {
 
     expect(clearInterval).toHaveBeenCalled()
     expect(clearInterval).toHaveBeenCalledWith(wrapper.state().intervalId)
+  })
+
+  it('stopes the timer if countdown reaches zero', () => {
+    jest.useFakeTimers()
+
+    const props = { timer: 1000 }
+    const wrapper = setup(props)
+
+    wrapper.instance().runTimer()
+    jest.runAllTimers()
+
+    expect(wrapper.state().timer.toFormat('S')).toBe('0')
   })
 
   it('clears the timer', () => {
